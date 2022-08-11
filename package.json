@@ -1,7 +1,7 @@
 {
-  "name": "dv-cli",
+  "name": "@dlb-blank/dv-cli",
   "author": "danlongbo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "根据线上模板项目创建新的工作项目的脚手架工具",
   "main": "dv.js",
   "type": "module",
@@ -29,6 +29,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["cli", "vue", "dv-cli"],
+  "keywords": ["cli", "vue", "dv-cli", "@dlb-blank/dv-cli"],
   "license": "ISC"
 }
