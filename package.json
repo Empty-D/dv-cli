@@ -1,34 +1,38 @@
 {
   "name": "@dlb-blank/dv-cli",
-  "author": "danlongbo",
-  "version": "0.0.3",
+  "author": "dlb-blank",
+  "version": "0.0.5",
   "description": "根据线上模板项目创建新的工作项目的脚手架工具",
-  "main": "dv.js",
+  "main": "index.js",
   "type": "module",
   "bin": {
-    "dv": "bin/dv",
-    "dv-add": "bin/dv-add",
-    "dv-delete": "bin/dv-delete",
-    "dv-list": "bin/dv-list",
-    "dv-init": "bin/dv-init",
-    "dv-create": "bin/dv-create",
-    "add": "bin/dv-add",
-    "delete": "bin/dv-delete",
-    "list": "bin/dv-list",
-    "init": "bin/dv-init",
-    "create": "bin/dv-init"
+    "dv": "bin/dv.js",
+    "dv-add": "bin/dv-add.js",
+    "dv-delete": "bin/dv-delete.js",
+    "dv-list": "bin/dv-list.js",
+    "dv-init": "bin/dv-init.js",
+    "dv-create": "bin/dv-create.js"
   },
   "dependencies": {
-    "chalk": "^5.0.1",
-    "commander": "^9.4.0",
-    "download-git-repo": "^3.0.2",
-    "inquirer": "^9.1.0",
-    "ora": "^6.1.2"
+    "chalk": "5.0.1",
+    "commander": "9.4.0",
+    "download-git-repo": "3.0.2",
+    "inquirer": "9.1.0",
+    "ora": "6.1.2"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["cli", "vue", "dv-cli", "@dlb-blank/dv-cli"],
+  "keywords": [
+    "cli",
+    "vue",
+    "dv-cli",
+    "@dlb-blank/dv-cli"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Empty-D/dv-cli.git"
+  },
   "license": "ISC"
 }
