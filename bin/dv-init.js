@@ -9,7 +9,9 @@
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 import fs from 'fs' // node 内置文件模块
-import path from 'path' // 获取目录
+// import path from 'path' // 获取目录
+import { dirname } from 'path' // 获取目录
+import { fileURLToPath } from 'url' // 处理路径地址
 
 // 修改控制台字符串的样式
 import chalk from 'chalk'
@@ -24,9 +26,9 @@ import { program } from 'commander'
 import download from 'download-git-repo'
 
 // 获取当前根目录
-const __dirname = path.resolve()
+const __dirname = `${dirname(fileURLToPath(import.meta.url))}/../`
 // 读取根目录下的 template.json
-let templateObj = require(`${__dirname}/template.json`)
+const templateObj = require(`${__dirname}template.json`)
 
 // 自定义交互式命令行的问题及简单的校验
 const question = [
@@ -38,7 +40,6 @@ const question = [
       ...templateObj.tplArry
     ],
     validate (val) {
-      console.log('进入判断');
       if (!val) return '模板不能为空!'
       return true
     }
@@ -50,7 +51,6 @@ program.usage('用法: 命令 + <app-name>')
   .description('从已选模板创建一个新的项目')
   .action((projectName, options, command) => {
     if (!projectName) return program.help()
-    console.log('projectName', projectName);
     // 交互指令
     inquirer
       .prompt(question).then(answers => {
@@ -66,7 +66,7 @@ program.usage('用法: 命令 + <app-name>')
           { clone: true },
           err => {
             if (err) {
-              spinner.fail();
+              spinner.fail()
               return console.log(chalk.red(`下载失败. ${err}`))
             }
             fs.readFile(`${process.cwd()}/${projectName}/src/App.vue`, 'utf-8', (err, data) => {
@@ -76,22 +76,12 @@ program.usage('用法: 命令 + <app-name>')
                 if (err) return console.log(err)
               })
             })
-            console.log(chalk.green('\n 下载成功!'))
-            console.log('\n 可以开始')
-            console.log(`\n    cd ${projectName} \n`)
             // 结束加载图标
-            spinner.succeed()
+            spinner.succeed('下载完成!')
+            console.log(chalk.green('\n 项目创建成功!'))
+            console.log(`\n    cd ${projectName} \n`)
           }
         )
       })
   })
   .parse();
-
-  // 当没有输入参数的时候给个提示
-  // if (program.args.length < 1) return program.help()
-
-  // 第一个参数是 webpack，第二个参数是 project-name
-  // const templateName = program.args[0], projectName = program.args[1]
-  // 校验参数
-  // if (!templateObj[templateName]) return console.log(chalk.red('\n 模板不存在! \n '))
-  // if (!projectName) return console.log(chalk.red('\n 项目不能为空! \n '))

@@ -10,8 +10,9 @@ import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 // node 内置文件模块
 import fs from 'fs'
-// 获取目录
-import path from 'path'
+import { dirname } from 'path' // 获取目录
+import { fileURLToPath } from 'url' // 处理路径地址
+
 
 // 修改控制台字符串的样式
 import chalk from 'chalk'
@@ -19,9 +20,10 @@ import chalk from 'chalk'
 import inquirer from 'inquirer'
 
 // 获取当前根目录
-const __dirname = path.resolve()
+const __dirname = `${dirname(fileURLToPath(import.meta.url))}/../`
+
 // 读取根目录下的 template.json
-let templateObj = require(`${__dirname}/template.json`)
+let templateObj = require(`${__dirname}template.json`)
 
 const question = [
   {
@@ -46,7 +48,8 @@ inquirer
           {
             name: 'tpl',
             description: 'template1 (前端模板, 基于vue2)',
-            url: 'direct:http://gitlab.hztianque.com/s1e/assessmentthirdparty.git'
+            url: 'direct:http://gitlab.hztianque.com/s1e/assessmentthirdparty.git',
+            value: 'direct:http://gitlab.hztianque.com/s1e/assessmentthirdparty.git'
           }
         ]
       }
@@ -56,7 +59,7 @@ inquirer
     }
     // 更新 template.json 文件
     fs.writeFile(
-      `${__dirname}/template.json`,
+      `${__dirname}template.json`,
       JSON.stringify(templateObj),
       'utf-8',
       err => {

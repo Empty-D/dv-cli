@@ -9,7 +9,8 @@
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 import fs from 'fs' // node 内置文件模块
-import path from 'path' // 获取目录
+import { dirname } from 'path' // 获取目录
+import { fileURLToPath } from 'url' // 处理路径地址
 
 // 修改控制台字符串的样式
 import chalk from 'chalk'
@@ -17,9 +18,9 @@ import chalk from 'chalk'
 import inquirer from 'inquirer'
 
 // 获取当前根目录
-const __dirname = path.resolve()
+const __dirname = `${dirname(fileURLToPath(import.meta.url))}/../`
 // 读取根目录下的 template.json
-const templateObj = require(`${__dirname}/template.json`)
+let templateObj = require(`${__dirname}template.json`)
 
 // 自定义交互式命令行的问题及简单的校验
 const question = [
@@ -69,16 +70,19 @@ inquirer
       }
     ]
 
+    // 增强模板数据可读性
+    const tempArrList = templateObj.tplArry.map(item => `${item.name}(${item.description}): ${item.url}\n\n`)
+
     // 把模板信息写入 template.json 文件中
     fs.writeFile(
-      `${__dirname}/template.json`,
+      `${__dirname}template.json`,
       JSON.stringify(templateObj),
       'utf-8',
       err => {
         if (err) console.log(err)
         console.log('\n', chalk.green('操作成功!\n'))
         console.log(chalk.grey('模板信息: \n'))
-        console.log(...templateObj.tplArry, '\n')
+        console.log(...tempArrList, '\n')
       }
     )
   })
