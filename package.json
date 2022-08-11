@@ -1,17 +1,17 @@
 {
   "name": "@dlb-blank/dv-cli",
   "author": "dlb-blank",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "根据线上模板项目创建新的工作项目的脚手架工具",
   "main": "index.js",
   "type": "module",
   "bin": {
-    "dv": "bin/dv.js",
-    "dv-add": "bin/dv-add.js",
-    "dv-delete": "bin/dv-delete.js",
-    "dv-list": "bin/dv-list.js",
-    "dv-init": "bin/dv-init.js",
-    "dv-create": "bin/dv-create.js"
+    "dv": "./bin/dv.js",
+    "dv-add": "./bin/dv-add.js",
+    "dv-delete": "./bin/dv-delete.js",
+    "dv-list": "./bin/dv-list.js",
+    "dv-init": "./bin/dv-init.js",
+    "dv-create": "./bin/dv-create.js"
   },
   "dependencies": {
     "chalk": "5.0.1",
