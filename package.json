@@ -1,7 +1,7 @@
 {
   "name": "@dlb-blank/dv-cli",
   "author": "dlb-blank",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "根据线上模板项目创建新的工作项目的脚手架工具",
   "main": "index.js",
   "type": "module",

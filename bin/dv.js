@@ -11,8 +11,9 @@ const require = createRequire(import.meta.url);
 
 // 命令行补全工具
 import { program } from 'commander';
-// 交互式命令行
-import inquirer from 'inquirer';
+
+// 通过js执行npm命令
+import { exec } from 'child_process'
 
 // 定义指令
 program
@@ -23,8 +24,5 @@ program
   .command('list', '列出所有模板')
   .command('init', '从模板生成新的项目')
   .command('create', '创建模板并生成新的项目')
-  // .action((option) => { // 回调函数
-  // 	console.log('success');
-  // });
-// 解析命令行参数
-  .parse(process.argv);
+  // 解析命令行参数
+  .parse(process.argv)

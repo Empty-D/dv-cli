@@ -66,7 +66,7 @@ inquirer
         if (err) console.log(err)
         console.log('\n', chalk.green('操作成功!\n'))
         console.log(chalk.grey('模板信息: \n'))
-        console.log(...templateObj.tplArry, '\n')
+        // console.log(...templateObj.tplArry, '\n')
       }
     )
   })

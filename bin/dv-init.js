@@ -9,7 +9,6 @@
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 import fs from 'fs' // node 内置文件模块
-// import path from 'path' // 获取目录
 import { dirname } from 'path' // 获取目录
 import { fileURLToPath } from 'url' // 处理路径地址
 
@@ -24,6 +23,8 @@ import inquirer from 'inquirer'
 import { program } from 'commander'
 // 远程仓库下载
 import download from 'download-git-repo'
+// node子进程
+import { exec } from 'child_process'
 
 // 获取当前根目录
 const __dirname = `${dirname(fileURLToPath(import.meta.url))}/../`
@@ -45,7 +46,8 @@ const question = [
     }
   }
 ]
-program.usage('用法: 命令 + <app-name>')
+program
+  .usage('用法: 命令 + <app-name>')
   .argument('[app-name]')
   .showHelpAfterError()
   .description('从已选模板创建一个新的项目')
@@ -56,7 +58,7 @@ program.usage('用法: 命令 + <app-name>')
       .prompt(question).then(answers => {
         console.log(chalk.white('\n 开始创建项目... \n'))
         // 创建中图表
-        const spinner = ora('下载中...')
+        const spinner = ora('正在创建项目...')
         spinner.start()
 
         // 执行下载方法并传入参数
@@ -67,7 +69,7 @@ program.usage('用法: 命令 + <app-name>')
           err => {
             if (err) {
               spinner.fail()
-              return console.log(chalk.red(`下载失败. ${err}`))
+              return console.log(chalk.red(`创建失败. ${err}`))
             }
             fs.readFile(`${process.cwd()}/${projectName}/src/App.vue`, 'utf-8', (err, data) => {
               if (err) console.log(err)
@@ -76,9 +78,25 @@ program.usage('用法: 命令 + <app-name>')
                 if (err) return console.log(err)
               })
             })
-            // 结束加载图标
-            spinner.succeed('下载完成!')
+
             console.log(chalk.green('\n 项目创建成功!'))
+
+            spinner.start('项目创建完成, 正在初始化项目...')
+
+            // 当前项目文件目录
+            const projectPath = `${process.cwd()}/${projectName}`
+            // 获取项目配置文件
+            // const __dirname = `${dirname(fileURLToPath(import.meta.url))}/../`
+            // const 
+
+            // 下载完成后创建node子程序, 执行npm命令
+            exec('npm i', { cwd: projectPath }, (err, stdout, stderr) => {
+              if (err) return console.log('初始化失败, 请检查问题!', err)
+
+              // 结束加载图标
+              spinner.succeed('项目初始化已完成!')
+            })
+
             console.log(`\n    cd ${projectName} \n`)
           }
         )

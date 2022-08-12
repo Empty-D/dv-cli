@@ -15,12 +15,13 @@ import { fileURLToPath } from 'url' // 处理路径地址
 // 修改控制台字符串的样式
 import chalk from 'chalk'
 // loging效果插件
-import ora from 'ora';
+import ora from 'ora'
 
 // 交互式命令行
 import inquirer from 'inquirer'
 // 命令行补全工具
 import { program } from 'commander'
+
 // 远程仓库下载
 import download from 'download-git-repo'
 
@@ -86,7 +87,7 @@ program.usage('用法: 命令 + <app-name>')
       ]
 
       // 增强模板数据可读性
-      const tempArrList = templateObj.tplArry.map(item => `${item.name}(${item.description}): ${item.url}\n\n`)
+      const tempArrList = templateObj.tplArry.map(item => `${item.name}(${item.description})\n\n`)
 
       // 把模板信息写入 template.json 文件中
       fs.writeFile(
